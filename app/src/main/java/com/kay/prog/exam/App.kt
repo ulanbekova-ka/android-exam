@@ -2,10 +2,8 @@ package com.kay.prog.exam
 
 import android.app.Application
 import android.util.Log
-import androidx.room.Room
 import androidx.viewbinding.BuildConfig
 import com.kay.prog.exam.api.RickAndMortyApi
-import com.kay.prog.exam.database.AppDatabase
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -17,15 +15,11 @@ class App : Application() {
 
     private val isDebug get() = BuildConfig.DEBUG
 
-    lateinit var database: AppDatabase
     lateinit var rickAndMortyApi: RickAndMortyApi
 
     override fun onCreate() {
         super.onCreate()
         mInstance = this
-        database = Room.databaseBuilder(this, AppDatabase::class.java, "database")
-            .fallbackToDestructiveMigration()
-            .build()
 
         val okHttpClient = OkHttpClient.Builder()
             .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
@@ -63,7 +57,7 @@ class App : Application() {
 
     companion object {
 
-        const val BASE_URL = "https://rickandmortyapi.com/api"
+        const val BASE_URL = "https://rickandmortyapi.com/api/"
         const val TIMEOUT = 300L
 
         private var mInstance: App? = null

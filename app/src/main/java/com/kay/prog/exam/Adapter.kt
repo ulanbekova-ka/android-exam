@@ -3,16 +3,18 @@ package com.kay.prog.exam
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
-import com.kay.prog.exam.database.Character
+import com.bumptech.glide.Glide
+import com.kay.prog.exam.api.Item
 
 class Adapter(
     private val click: (id: Long) -> Unit
 ) : RecyclerView.Adapter<Adapter.ViewHolder>() {
-    private var list: List<Character> = listOf()
+    private var list: List<Item> = listOf()
 
-    fun setData(list: List<Character>) {
+    fun setData(list: List<Item>) {
         this.list = list
         notifyDataSetChanged()
     }
@@ -37,12 +39,21 @@ class Adapter(
         itemView: View, private val click: (id: Long) -> Unit
     ) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(character: Character) {
-            val data = itemView.findViewById<AppCompatTextView>(R.id.itemData)
-            data.text = character.name
+        fun bind(item: Item) {
+            val img = itemView.findViewById<AppCompatImageView>(R.id.img)
+            val name = itemView.findViewById<AppCompatTextView>(R.id.name)
+            val status = itemView.findViewById<AppCompatTextView>(R.id.status)
+            val species = itemView.findViewById<AppCompatTextView>(R.id.species)
+//            val location = itemView.findViewById<AppCompatTextView>(R.id.location)
+
+            Glide.with(itemView.context).load(item.image).into(img)
+            name.text = item.name
+            status.text = item.status
+            species.text = item.species
+//            location.text = item.location?.name
 
             itemView.setOnClickListener {
-                click.invoke(character.id)
+                click.invoke(item.id)
             }
         }
     }
