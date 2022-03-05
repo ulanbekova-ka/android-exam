@@ -39,7 +39,6 @@ class MainFrg : Fragment(R.layout.frg_main) {
 
             swipe.setOnRefreshListener {
                 getList()
-                swipe.isRefreshing = false
             }
         }
     }
@@ -57,6 +56,9 @@ class MainFrg : Fragment(R.layout.frg_main) {
                 }
 
                 adapter.setData(list)
+            }
+            .doFinally {
+                binding.swipe.isRefreshing = false
             }
             .subscribe()
     }
