@@ -39,7 +39,7 @@ class MainFrg : Fragment(R.layout.frg_main) {
 
             swipe.setOnRefreshListener {
                 getList()
-                swipe.isRefreshing = false
+                swipe.isRefreshing = false // нужно пернести в doFianlly { ... }
             }
         }
     }
